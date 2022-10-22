@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import bg from '../component/img/bg.svg'
 import avatar from '../component/img/avatar.svg'
 import wave from '../component/img/wave.png'
 import './styles/Form.css'
-export const Form =() =>{
+import Prefil from '../component/service/Prefil.js'
 
+
+export const Form =() =>{
+	const navigate=useNavigate()
     const [firstName,setFirstName]=useState('')
     const [lastName,setLastName]=useState('')
 
     const handleSubmit= (e) =>{
         e.preventDefault();
-        console.log(
-            "FirstName : "+firstName+" Lastname : "+lastName)
-    }
+        console.log("FirstName : "+firstName+" Lastname : "+lastName)
+		const name={
+			"firstName":firstName,
+			"lastName": lastName
+		}
 
+			Prefil.addDetails(name).then(res=> {
+				console.log("Name added");
+				navigate("/more");
+    });
+	}
 
 
 

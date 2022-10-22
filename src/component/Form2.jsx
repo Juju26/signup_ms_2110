@@ -12,7 +12,7 @@ export const Form2 =() =>{
     const [age,setAge]=useState('')
     const [gender,setGender]=useState('')
     const [mobile,setMobile]=useState('')
-
+    
     const handleSubmit= (e) =>{
         e.preventDefault();
         console.log("Age "+age+" gender"+gender+" mobile "+mobile)

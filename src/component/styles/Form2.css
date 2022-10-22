@@ -89,11 +89,8 @@ select{
 	color: #999;
 }
 
-select::selection{
-	color: #333;
-}
 
-option{
+select option{
 	color: rgb(16, 4, 4);
 }
 
