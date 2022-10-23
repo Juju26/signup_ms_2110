@@ -1,10 +1,18 @@
 import axios from 'axios'
 
-export const UserService =() =>{
+class UserService {
 
-    base_uri="http://localhost:8050"
+    base_uri="http://localhost:8050";
+    users_uri="http://localhost:8060";
 
-    showUsers(id){
-        return axios.get(base_uri+'getcontent/'+id)
+    showUser(id) {
+        return axios.get(this.base_uri+'/getcontent/'+id);
+    }
+    
+    showAllUsers(){
+        console.log("inside userservice");
+        return axios.get(this.users_uri+'/getall/');
     }
 }
+
+export default new UserService

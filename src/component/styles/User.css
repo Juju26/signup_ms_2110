@@ -1,0 +1,6 @@
+.table{
+    border: 5px black ;
+}
+thead,tbody,  tr, td{
+    border: 5px;
+}

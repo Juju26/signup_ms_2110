@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import bg from '../component/img/bg.svg'
 import avatar from '../component/img/avatar.svg'
 import wave from '../component/img/wave.png'
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import './styles/Form2.css'
 
 export const Form2 =() =>{

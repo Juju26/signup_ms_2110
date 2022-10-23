@@ -1,40 +1,27 @@
-import React from "react";
-import { useState } from "react";
-import UserService from "./service/UserService";
+import React, { useEffect } from 'react'
+import UserService from './service/UserService'
+import './styles/User.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 
-export const User=()=>{
+export const AllUser =()=>{
 
-    const [id,setId]=useState('')
-
-    const[user,setUser]=useState([])
-
-const handleSubmit=(e)=>{
-    e.preventDefault()
-    UserService.showUser(id).then(
-        res=>{
-            setUser(res.data)
-            console.log(res.data)
-        }
-    ).catch("err")
-
-
-}
+    const [alluser,setAllUser]=useState([])
+    useEffect(()=>{
+        UserService.showAllUsers().then(res=>{
+            setAllUser(res.data)
+            console.log(alluser)
+         })
+    }
+    );
+    
+    
 
     return(
         <>
-        <div>
-            <center>
-            <form>
-                <label>id</label>
-                    <input  type='text' value={id} placeholder="Enter id" 
-                    onChange={(e)=>setId(e.target.value)} />
-                    <input type="submit" onClick={(e)=>handleSubmit(e)}/>
-            </form>
-            </center>
-        </div>
-
-        <table className="table table-striped table-border mt-5">
-  <thead className="thead-dark">
+        <div >
+        <table class="table table-striped table-border mt-5">
+  <thead class="thead-dark">
     <tr>
       <th scope="col">id</th>
       <th scope="col">FirstName</th>
@@ -49,8 +36,13 @@ const handleSubmit=(e)=>{
     </tr>
   </thead>
   <tbody>
+    
+        
+
+
+
     {
-                                              
+                                                alluser.map((user) => (
                                                     <tr key={user.id}>
                                                         
                                                         <td>{user.id}</td>
@@ -64,11 +56,14 @@ const handleSubmit=(e)=>{
                                                         <td>{user.state}</td>
                                                         <td>{user.country}</td>        
                                                     </tr>
-                                                
+                                                  
+                                                ))
                                             }
     
   </tbody>
 </table>
+
+        </div>
         </>
     )
 }
