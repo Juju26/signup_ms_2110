@@ -3,8 +3,11 @@ import bg from '../component/img/bg.svg'
 import avatar from '../component/img/avatar.svg'
 import wave from '../component/img/wave.png'
 import './styles/Form2.css'
+import { useNavigate } from 'react-router-dom'
 
 export const Form2 =() =>{
+
+    const navigate=useNavigate()
 
     const [age,setAge]=useState('')
     const [gender,setGender]=useState('')
@@ -13,6 +16,7 @@ export const Form2 =() =>{
     const handleSubmit= (e) =>{
         e.preventDefault();
         console.log("Age "+age+" gender"+gender+" mobile "+mobile)
+        navigate("/little_more")
         
     }
     return(
