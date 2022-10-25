@@ -1,12 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import bg from '../component/img/bg.svg'
 import avatar from '../component/img/avatar.svg'
 import wave from '../component/img/wave.png'
 import './styles/Form2.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import Prefil from './service/Prefil'
+import UserService from './service/UserService'
 
 export const Form2 =() =>{
+  
 
+    
+    const [name,setName]=useState('')
+    const [id,setId] =useState('')
+
+    useEffect(()=>{
+        const userId=localStorage.getItem("id")
+        UserService.showUser(userId).then(res=>{
+            setId(res.data.id)
+            setName(res.data.firstName)
+        }
+    );
+    },[])
+    
     const navigate=useNavigate()
 
     const [age,setAge]=useState('')
@@ -14,10 +30,16 @@ export const Form2 =() =>{
     const [mobile,setMobile]=useState('')
     
     const handleSubmit= (e) =>{
-        e.preventDefault();
+        e.preventDefault();      
+        const body={
+            "age": Number(age),
+            "gender":gender,
+            "mobile":mobile
+        } 
         console.log("Age "+age+" gender"+gender+" mobile "+mobile)
-        navigate("/little_more")
-        
+        Prefil.patchDetails(body);
+
+        navigate("/little_more",{state:{userName:name,userId:id}})
     }
     return(
         <>     
@@ -32,7 +54,7 @@ export const Form2 =() =>{
 			<form>
 				<img src={avatar} alt="not found"/>
                 <br/>
-				 <h2 className="title">Tell us more😁</h2> 
+				 <h2 className="title">Welcome {name} Tell us more😁</h2> 
            		<div className="input-div one">
            		   <div className="i">
            		   		<i className="fas fa-user"></i>
@@ -51,22 +73,16 @@ export const Form2 =() =>{
            		   <div className="i"> 
            		    	<i className="fas fa-lock"></i>
            		   </div>
-
-
-
-
-
-           		
                      <select
                      value={gender}
                      name="Gender"
                      onChange={(e) => setGender(e.target.value)}
                   className='input-menu'
                   placeholder='Select gender'>
-                       <option selected  hidden  > Select gender</option>
-                        <option> Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
+                       <option  hidden defaultValue > Select gender</option>
+                        <option value='Male'> Male</option>
+                        <option value='Female'>Female</option>
+                        <option value='other'>Other</option>
                      </select>
 
 

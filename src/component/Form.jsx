@@ -8,7 +8,10 @@ import Prefil from '../component/service/Prefil.js'
 
 
 export const Form =() =>{
+
+
 	const navigate=useNavigate()
+	
     const [firstName,setFirstName]=useState('')
     const [lastName,setLastName]=useState('')
 
@@ -21,6 +24,7 @@ export const Form =() =>{
 		}
 
 			Prefil.addDetails(name).then(res=> {
+				localStorage.setItem("id",res.data.id)
 				console.log("Name added");
 				navigate("/more");
     });

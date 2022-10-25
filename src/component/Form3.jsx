@@ -1,10 +1,10 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect} from 'react';
 import axios  from 'axios';
 import bg from '../component/img/bg.svg'
 import avatar from '../component/img/avatar.svg'
 import wave from '../component/img/wave.png'
 import './styles/Form2.css'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate , useLocation } from 'react-router-dom'
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Prefil from './service/Prefil';
@@ -12,6 +12,10 @@ import Prefil from './service/Prefil';
 export const Form3 =() =>{
 
     const navigate=useNavigate();
+    const location=useLocation();
+
+    const {userName}=location.state 
+    const{userId}=location.state
 
     const [data, setData] = useState([]);
     const[country,setCountry]=useState([]);
@@ -20,7 +24,6 @@ export const Form3 =() =>{
     const[selectedState,setSelectedState]=useState('');
     const[city,setCity]=useState([]);
     const[selectedCity,setSelectedCity]=useState('');
-    
     const handleSubmit= (e) =>{
         e.preventDefault();
         // console.log("Age "+age+" gender"+gender+" mobile "+mobile)
@@ -31,13 +34,10 @@ export const Form3 =() =>{
             "state":selectedState,
             "country":selectedCountry
         }
-        Prefil.addDetails(address)
-        navigate('/home')
+       Prefil.patchDetails(address)
+        navigate('/home',{state:{id:userId}})
         
     }
-    
-    
-
 
     useEffect(() => {
         const response=axios
@@ -109,7 +109,7 @@ export const Form3 =() =>{
 			<form>
 				<img src={avatar} alt="not found"/>
                 <br/>
-				 <h2 className="title">Tell a little more😅</h2> 
+				 <h2 className="title">{userName}, Tell a little more😅</h2> 
            		
                    <label style={{"position":"relative","left":"-140px"}}><b>Country*</b></label>
        <Select

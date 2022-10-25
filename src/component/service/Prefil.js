@@ -10,8 +10,12 @@ import axios from "axios";
      addDetails(name){
         console.log("add details")
         return axios.post(this.base_uri+'/save',name)  
+    }    
+
+    patchDetails(body){
+        console.log("patch method")
+        return axios.patch(this.base_uri+"/patch",body)
     }
-     
 
 }
 export default new Prefil
